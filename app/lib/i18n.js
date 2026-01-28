@@ -1,0 +1,239 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+// 定义中英文文本内容
+const translations = {
+  en: {
+    // 导航
+    nav: {
+      home: 'Home',
+      gallery: 'Gallery',
+      about: 'About',
+      upcoming: 'Upcoming',
+      contact: 'Contact',
+    },
+    
+    // 首页
+    home: {
+      hero: {
+        title: 'CHARLOTTE CLAPPERTON',
+        subtitle: 'Mezzo-Soprano',
+        aboutBtn: 'ABOUT',
+        upcomingBtn: 'UPCOMING EVENTS',
+      },
+      featured: {
+        title: 'FEATURED PERFORMANCE',
+      },
+      aboutPreview: {
+        title: 'ABOUT CHARLOTTE',
+        content: 'Charlotte Clapperton is an internationally acclaimed mezzo-soprano known for her powerful voice and captivating stage presence. With a repertoire spanning from Baroque to contemporary opera, she has performed in prestigious venues across Europe and North America.',
+        learnMore: 'LEARN MORE',
+      },
+      upcomingPreview: {
+        title: 'UPCOMING EVENTS',
+        viewAll: 'VIEW ALL EVENTS',
+      },
+      galleryPreview: {
+        title: 'GALLERY',
+        viewFull: 'VIEW FULL GALLERY',
+      },
+    },
+    
+    // 画廊
+    gallery: {
+      title: 'GALLERY',
+    },
+    
+    // 简介
+    about: {
+      title: 'ABOUT',
+      artisticApproach: 'ARTISTIC APPROACH',
+    },
+    
+    // 即将到来
+    upcoming: {
+      title: 'UPCOMING EVENTS',
+      bookTickets: 'BOOK TICKETS',
+    },
+    
+    // 联系
+    contact: {
+      title: 'CONTACT',
+      getInTouch: 'GET IN TOUCH',
+      contactInfo: 'CONTACT INFORMATION',
+      management: 'Management',
+      press: 'Press & Publicity',
+      social: 'Social Media',
+      form: {
+        name: 'Name',
+        email: 'Email',
+        subject: 'Subject',
+        message: 'Message',
+        send: 'SEND MESSAGE',
+      },
+    },
+    
+    // 管理
+    admin: {
+      login: 'ADMIN LOGIN',
+      password: 'Password',
+      loginBtn: 'LOGIN',
+      panel: 'ADMIN PANEL',
+      media: 'Media Upload',
+      gallery: 'Gallery',
+      performances: 'Performances',
+      about: 'About',
+      upload: 'Upload Media',
+      addGallery: 'Add to Gallery',
+      addPerformance: 'Add Performance',
+      updateAbout: 'Update About Information',
+      form: {
+        title: 'Title',
+        location: 'Location',
+        date: 'Date',
+        time: 'Time',
+        description: 'Description',
+        imageUrl: 'Image URL',
+        content: 'Content',
+      },
+      buttons: {
+        addPerformance: 'ADD PERFORMANCE',
+        updateAbout: 'UPDATE ABOUT',
+      },
+    },
+  },
+  
+  zh: {
+    // 导航
+    nav: {
+      home: '首页',
+      gallery: '画廊',
+      about: '简介',
+      upcoming: '即将到来',
+      contact: '联系方式',
+    },
+    
+    // 首页
+    home: {
+      hero: {
+        title: '夏洛特·克拉珀顿',
+        subtitle: '女中音歌唱家',
+        aboutBtn: '关于',
+        upcomingBtn: '即将演出',
+      },
+      featured: {
+        title: '精选演出',
+      },
+      aboutPreview: {
+        title: '关于夏洛特',
+        content: '夏洛特·克拉珀顿是一位国际知名的女中音歌唱家，以其强大的嗓音和迷人的舞台表现力而闻名。她的曲目涵盖从巴洛克到现代歌剧，曾在欧洲和北美的著名场馆演出。',
+        learnMore: '了解更多',
+      },
+      upcomingPreview: {
+        title: '即将演出',
+        viewAll: '查看全部演出',
+      },
+      galleryPreview: {
+        title: '画廊',
+        viewFull: '查看完整画廊',
+      },
+    },
+    
+    // 画廊
+    gallery: {
+      title: '画廊',
+    },
+    
+    // 简介
+    about: {
+      title: '简介',
+      artisticApproach: '艺术理念',
+    },
+    
+    // 即将到来
+    upcoming: {
+      title: '即将演出',
+      bookTickets: '购票',
+    },
+    
+    // 联系
+    contact: {
+      title: '联系方式',
+      getInTouch: '联系我们',
+      contactInfo: '联系信息',
+      management: '经纪人',
+      press: '媒体与宣传',
+      social: '社交媒体',
+      form: {
+        name: '姓名',
+        email: '邮箱',
+        subject: '主题',
+        message: '留言',
+        send: '发送留言',
+      },
+    },
+    
+    // 管理
+    admin: {
+      login: '管理员登录',
+      password: '密码',
+      loginBtn: '登录',
+      panel: '管理面板',
+      media: '媒体上传',
+      gallery: '画廊',
+      performances: '演出',
+      about: '关于',
+      upload: '上传媒体',
+      addGallery: '添加到画廊',
+      addPerformance: '添加演出',
+      updateAbout: '更新关于信息',
+      form: {
+        title: '标题',
+        location: '地点',
+        date: '日期',
+        time: '时间',
+        description: '描述',
+        imageUrl: '图片URL',
+        content: '内容',
+      },
+      buttons: {
+        addPerformance: '添加演出',
+        updateAbout: '更新关于',
+      },
+    },
+  },
+};
+
+// 国际化钩子
+export const useTranslation = () => {
+  const [language, setLanguage] = useState('en');
+  const [t, setT] = useState(translations.en);
+
+  // 从 localStorage 加载语言偏好
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+      setT(translations[savedLanguage]);
+    }
+  }, []);
+
+  // 监听语言变化事件
+  useEffect(() => {
+    const handleLanguageChange = (event) => {
+      const newLanguage = event.detail;
+      setLanguage(newLanguage);
+      setT(translations[newLanguage]);
+    };
+
+    window.addEventListener('languageChange', handleLanguageChange);
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange);
+    };
+  }, []);
+
+  return { t, language };
+};
+
+export default translations;
