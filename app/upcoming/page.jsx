@@ -175,13 +175,13 @@ const UpcomingPage = () => {
           
           {/* 分页控件 */}
           {!isDefaultData && totalPages > 1 && (
-            <div className="mt-16 flex justify-center items-center">
-              <div className="flex items-center space-x-2">
+            <div className="mt-16 flex flex-col items-center">
+              <div className="flex items-center space-x-2 mb-4">
                 {/* 上一页按钮 */}
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Previous
                 </button>
@@ -191,7 +191,7 @@ const UpcomingPage = () => {
                   <button
                     key={page}
                     onClick={() => handlePageChange(page)}
-                    className={`px-4 py-2 rounded-md ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
+                    className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
                   >
                     {page}
                   </button>
@@ -201,14 +201,14 @@ const UpcomingPage = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Next
                 </button>
               </div>
               
               {/* 分页信息 */}
-              <div className="ml-8 text-gray-600">
+              <div className="text-gray-600 text-sm">
                 Page {currentPage} of {totalPages} ({totalItems} items)
               </div>
             </div>
