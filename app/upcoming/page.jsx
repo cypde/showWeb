@@ -26,7 +26,7 @@ const UpcomingPage = () => {
           .from('performances')
           .select('*', { count: 'exact' })
           .eq('is_active', true)
-          .order('date', { ascending: true })
+          .order('created_at', { ascending: false })
           .range(offset, offset + itemsPerPage - 1);
 
         if (error) {

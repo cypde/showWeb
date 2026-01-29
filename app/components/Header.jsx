@@ -12,8 +12,8 @@ const Header = () => {
   const [navLinks, setNavLinks] = useState([
     { href: '/', label: 'Home' },
     { href: '/gallery', label: 'Gallery' },
-    { href: '/about', label: 'About' },
     { href: '/upcoming', label: 'Upcoming' },
+    { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' }
   ]);
   const [loading, setLoading] = useState(true);

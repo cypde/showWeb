@@ -75,7 +75,8 @@ const HomePage = () => {
         const { data: performanceData, error: performanceError } = await supabase
           .from('performances')
           .select('*')
-          .order('date', { ascending: true })
+          .eq('is_active', true)
+          .order('created_at', { ascending: false })
           .limit(3);
 
         if (performanceError) {
@@ -86,6 +87,8 @@ const HomePage = () => {
         const { data: galleryData, error: galleryError } = await supabase
           .from('gallery')
           .select('*')
+          .eq('is_active', true)
+          .order('order_position', { ascending: true })
           .limit(4);
 
         if (galleryError) {

@@ -26,7 +26,7 @@ const GalleryPage = () => {
           .from('gallery')
           .select('*', { count: 'exact' })
           .eq('is_active', true)
-          .order('order_position', { ascending: true })
+          .order('created_at', { ascending: false })
           .range(offset, offset + itemsPerPage - 1);
 
         if (error) {
