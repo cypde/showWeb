@@ -37,12 +37,12 @@ const Header = () => {
         // Fetch navigation links
         const { data: navData, error: navError } = await supabase
           .from('navigation')
-          .select('id, label, url, order_position, is_active')
+          .select('id, name, url, order_position, is_active')
           .eq('is_active', true)
           .order('order_position', { ascending: true });
         
         if (navData) {
-          setNavLinks(navData.map(item => ({ href: item.url, label: item.label })));
+          setNavLinks(navData.map(item => ({ href: item.url, label: item.name })));
         }
       } catch (error) {
         console.error('Error fetching config:', error);
