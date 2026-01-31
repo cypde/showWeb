@@ -60,7 +60,7 @@ const AboutPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'About' : '关于'}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center font-handwritten">{language === 'en' ? 'About' : '关于'}</h1>
           
           <div className="flex flex-col md:flex-row items-center mb-20">
             <div className="md:w-1/2 mb-10 md:mb-0 md:pr-12">
@@ -71,8 +71,8 @@ const AboutPage = () => {
               />
             </div>
             <div className="md:w-1/2">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">{aboutData.title}</h2>
-              <div className="prose prose-lg">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 font-handwritten">{aboutData.title}</h2>
+              <div className="prose prose-lg font-handwritten">
                 {aboutData.content.split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -89,8 +89,8 @@ const AboutPage = () => {
               />
             </div>
             <div className="md:w-1/2">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">{language === 'en' ? 'Artistic Approach' : '艺术理念'}</h2>
-              <div className="prose prose-lg">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 font-handwritten">{language === 'en' ? 'Artistic Approach' : '艺术理念'}</h2>
+              <div className="prose prose-lg font-handwritten">
                 {(aboutData.artisticApproach || aboutData.content).split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}

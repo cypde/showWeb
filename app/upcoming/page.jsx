@@ -142,7 +142,7 @@ const UpcomingPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'Upcoming Performances' : '演出安排'}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center font-handwritten">{language === 'en' ? 'Upcoming Performances' : '演出安排'}</h1>
           
           <div className="space-y-12">
             {displayData.map((event) => (
@@ -155,20 +155,20 @@ const UpcomingPage = () => {
                   />
                 </div>
                 <div className="md:w-2/3">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">{event.title}</h2>
-                  <p className="text-gray-600 mb-4">{event.location}</p>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2 font-handwritten">{event.title}</h2>
+                  <p className="text-gray-600 mb-4 font-sans">{event.location}</p>
                   <div className="flex flex-col md:flex-row md:space-x-8 mb-4">
                     <div>
-                      <p className="text-sm font-bold uppercase text-gray-500 mb-1">Date</p>
-                      <p className="text-lg">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      <p className="text-sm font-bold uppercase text-gray-500 mb-1 font-sans">Date</p>
+                      <p className="text-lg font-sans">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-bold uppercase text-gray-500 mb-1">Time</p>
-                      <p className="text-lg">{event.time}</p>
+                      <p className="text-sm font-bold uppercase text-gray-500 mb-1 font-sans">Time</p>
+                      <p className="text-lg font-sans">{event.time}</p>
                     </div>
                   </div>
-                  <p className="text-lg mb-6">{event.description}</p>
-                  <a href="#" className="inline-block bg-black text-white px-8 py-3 font-bold hover:bg-gray-800 transition-colors">{language === 'en' ? 'Book Tickets' : '预订门票'}</a>
+                  <p className="text-lg mb-6 font-sans">{event.description}</p>
+                  <a href="#" className="inline-block bg-black text-white px-8 py-3 font-bold hover:bg-gray-800 transition-colors font-sans">{language === 'en' ? 'Book Tickets' : '预订门票'}</a>
                 </div>
               </div>
             ))}
@@ -182,7 +182,7 @@ const UpcomingPage = () => {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Previous
                 </button>
@@ -192,7 +192,7 @@ const UpcomingPage = () => {
                   <button
                     key={page}
                     onClick={() => handlePageChange(page)}
-                    className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
+                    className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
                   >
                     {page}
                   </button>
@@ -202,14 +202,14 @@ const UpcomingPage = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Next
                 </button>
               </div>
               
               {/* 分页信息 */}
-              <div className="text-gray-600 text-sm">
+              <div className="text-gray-600 text-sm font-sans">
                 Page {currentPage} of {totalPages} ({totalItems} items)
               </div>
             </div>

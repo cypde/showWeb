@@ -74,23 +74,23 @@ const ContactPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{pageData.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center font-handwritten">{pageData.title}</h1>
           
           <div className="bg-gray-50 p-8 md:p-12 rounded-lg">
             
             <div className="space-y-8">
               {contactSections.map((section) => (
                 <div key={section.id}>
-                  <h3 className="text-xl font-bold mb-4">{section.title}</h3>
+                  <h3 className="text-xl font-bold mb-4 font-handwritten">{section.title}</h3>
                   
                   {section.section_type !== 'social' ? (
-                    <div className="space-y-2">
+                    <div className="space-y-2 font-sans">
                       {section.name && <p>{section.name}</p>}
                       {section.organization && <p>{section.organization}</p>}
                       {section.email && <p>{section.email}</p>}
                       {section.phone && <p>{section.phone}</p>}
                       {section.website && (
-                        <a href={section.website} className="text-blue-600 hover:underline">
+                        <a href={section.website} className="text-blue-600 hover:underline font-sans">
                           {section.website}
                         </a>
                       )}
@@ -101,7 +101,7 @@ const ContactPage = () => {
                         <a 
                           key={social.id} 
                           href={social.url} 
-                          className="text-gray-800 hover:text-gray-600 transition-colors"
+                          className="text-gray-800 hover:text-gray-600 transition-colors icon-hover"
                           target="_blank"
                           rel="noopener noreferrer"
                         >

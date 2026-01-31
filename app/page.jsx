@@ -169,8 +169,8 @@ const HomePage = () => {
           className="w-full h-full object-cover transition-transform duration-10000 hover:scale-110"
         />
         <div className="absolute inset-0 gradient-overlay flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-wider fade-in">{homeSections.hero?.title}</h1>
-          <p className="text-xl md:text-2xl lg:text-3xl mb-8 fade-in" style={{ animationDelay: '0.2s' }}>{homeSections.hero?.subtitle}</p>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-wider fade-in font-display">{homeSections.hero?.title}</h1>
+            <p className="text-xl md:text-2xl lg:text-3xl mb-8 fade-in font-sans" style={{ animationDelay: '0.2s' }}>{homeSections.hero?.subtitle}</p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 fade-in" style={{ animationDelay: '0.4s' }}>
             <a href={homeSections.hero?.button_url || '#about'} className="bg-primary text-white px-8 py-3 font-bold hover:bg-primary-700 transition-colors btn">{homeSections.hero?.button_text || 'About Me'}</a>
             <a href="#upcoming" className="border-2 border-white text-white px-8 py-3 font-bold hover:bg-white hover:text-black transition-colors btn">{homeSections.upcoming_preview?.button_text || 'Upcoming'}</a>
@@ -181,7 +181,7 @@ const HomePage = () => {
       {/* Video Section */}
       <section className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50">
         <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in">{homeSections.video?.title || 'Featured Performance'}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in font-decorative">{homeSections.video?.title || 'Featured Performance'}</h2>
           <div className="aspect-w-16 aspect-h-9 max-w-5xl mx-auto rounded-xl overflow-hidden shadow-elegant fade-in" style={{ animationDelay: '0.2s' }}>
             <iframe 
               src={homeSections.video?.video_url || "https://www.youtube.com/embed/dQw4w9WgXcQ"} 
@@ -209,8 +209,8 @@ const HomePage = () => {
               </div>
             </div>
             <div className="md:w-1/2 fade-in" style={{ animationDelay: '0.3s' }}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">{homeSections.about_preview?.title || 'About Charlotte'}</h2>
-              <p className="text-lg mb-6 text-gray-700 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">{homeSections.about_preview?.title || 'About Charlotte'}</h2>
+              <p className="text-lg mb-6 text-gray-700 leading-relaxed font-sans">
                 {homeSections.about_preview?.content || (data.about?.content ? data.about.content.substring(0, 300) + '...' : 'Charlotte Clapperton is an internationally acclaimed mezzo-soprano known for her powerful voice and captivating stage presence.')}
               </p>
               <a href={homeSections.about_preview?.button_url || '/about'} className="inline-block bg-primary text-white px-8 py-3 font-bold hover:bg-primary-700 transition-colors btn">{homeSections.about_preview?.button_text || 'Learn More'}</a>
@@ -222,7 +222,7 @@ const HomePage = () => {
       {/* Upcoming Events Preview */}
       <section id="upcoming" className="py-20 px-4 md:px-8 lg:px-16 bg-dark text-white">
         <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in">{homeSections.upcoming_preview?.title || 'Upcoming Performances'}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in font-display">{homeSections.upcoming_preview?.title || 'Upcoming Performances'}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {data.performances.length > 0 ? (
               data.performances.map((event, index) => (
@@ -235,9 +235,9 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                    <p className="text-gray-400 mb-2">{event.location}</p>
-                    <p className="mb-4 text-primary">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <h3 className="text-xl font-bold mb-2 font-serif">{event.title}</h3>
+                    <p className="text-gray-400 mb-2 font-sans">{event.location}</p>
+                    <p className="mb-4 text-primary font-sans">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                     <a href="/upcoming" className="inline-block border border-primary text-primary px-6 py-2 font-bold hover:bg-primary hover:text-white transition-colors btn">DETAILS</a>
                   </div>
                 </div>
@@ -253,9 +253,9 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                    <p className="text-gray-400 mb-2">{event.location}</p>
-                    <p className="mb-4 text-primary">{event.date}</p>
+                    <h3 className="text-xl font-bold mb-2 font-serif">{event.title}</h3>
+                    <p className="text-gray-400 mb-2 font-sans">{event.location}</p>
+                    <p className="mb-4 text-primary font-sans">{event.date}</p>
                     <a href="/upcoming" className="inline-block border border-primary text-primary px-6 py-2 font-bold hover:bg-primary hover:text-white transition-colors btn">DETAILS</a>
                   </div>
                 </div>
@@ -271,13 +271,13 @@ const HomePage = () => {
       {/* Gallery Preview */}
       <section className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50">
         <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in">{homeSections.gallery_preview?.title || 'Gallery'}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in font-handwritten">{homeSections.gallery_preview?.title || 'Gallery'}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {data.gallery.length > 0 ? (
               data.gallery.map((item, index) => (
                 <div key={item.id || index} className="rounded-xl overflow-hidden shadow-elegant card-hover fade-in" style={{ animationDelay: `${0.1 + index * 0.1}s` }}>
                   <div className="p-3 bg-white">
-                    <h3 className="text-sm font-medium text-gray-700">{item.title || `Performance ${index + 1}`}</h3>
+                    <h3 className="text-sm font-medium text-gray-700 font-sans">{item.title || `Performance ${index + 1}`}</h3>
                   </div>
                   <img 
                     src={item.image_url} 
@@ -290,7 +290,7 @@ const HomePage = () => {
               defaultData.gallery.map((image, index) => (
                 <div key={index} className="rounded-xl overflow-hidden shadow-elegant card-hover fade-in" style={{ animationDelay: `${0.1 + index * 0.1}s` }}>
                   <div className="p-3 bg-white">
-                    <h3 className="text-sm font-medium text-gray-700">Performance {index + 1}</h3>
+                    <h3 className="text-sm font-medium text-gray-700 font-sans">Performance {index + 1}</h3>
                   </div>
                   <img 
                     src={image} 

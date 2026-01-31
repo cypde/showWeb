@@ -19,6 +19,7 @@ const Header = () => {
     { href: '/upcoming', label: 'Upcoming' },
     { href: '/contact', label: 'Contact' }
   ]);
+  const [scrolled, setScrolled] = useState(false);
 
   // 在客户端水合后更新导航链接文本
   useEffect(() => {
@@ -30,6 +31,17 @@ const Header = () => {
       { href: '/contact', label: language === 'en' ? 'Contact' : '联系' }
     ]);
   }, [language]);
+
+  // 滚动检测效果
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      setScrolled(offset > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -73,7 +85,7 @@ const Header = () => {
   }, [language]);
 
   return (
-    <header className="bg-black text-white py-6 px-4 md:px-8 lg:px-16 fixed top-0 left-0 right-0 z-50 shadow-lg header-animation">
+    <header className={`bg-black text-white px-4 md:px-8 lg:px-16 fixed top-0 left-0 right-0 z-50 shadow-lg header-animation transition-all duration-500 ${scrolled ? 'py-3 bg-opacity-95 backdrop-blur-md shadow-xl' : 'py-6 bg-opacity-100'}`}>
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <Link href="/" className="text-2xl md:text-3xl font-bold tracking-wider mb-4 md:mb-0">
           {siteConfig.site_title}
@@ -102,15 +114,11 @@ const Header = () => {
               <Link 
                 key={index}
                 href={link.href}
-                className={`relative px-2 py-1 transition-all duration-300 ${pathname === link.href ? 'text-white' : 'text-gray-300 hover:text-white'}`}
+                className={`relative px-3 py-2 text-lg font-medium transition-all duration-300 ease-in-out ${pathname === link.href ? 'text-white' : 'text-gray-300 hover:text-white'} ${scrolled ? 'text-sm' : 'text-base'}`}
               >
                 {link.label}
-                {pathname === link.href && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 transform scale-x-100 transition-transform duration-300" />
-                )}
-                {pathname !== link.href && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 transform scale-x-0 hover:scale-x-100 transition-transform duration-300" />
-                )}
+                <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 transition-transform duration-400 ease-out ${pathname === link.href ? 'transform scale-x-100' : 'transform scale-x-0 hover:scale-x-100'}`} />
+                <span className={`absolute inset-0 rounded-full bg-amber-500 bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 ease-in-out`} />
               </Link>
             ))}
           </nav>
@@ -119,25 +127,25 @@ const Header = () => {
       </div>
       
       {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-black border-t border-gray-800 shadow-lg">
+      <div className={`md:hidden absolute top-full left-0 right-0 bg-black border-t border-gray-800 shadow-lg transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4 pointer-events-none'}`}>
+        {isMenuOpen && (
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navLinks.map((link, index) => (
               <Link 
                 key={index}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`py-2 px-4 rounded transition-all duration-300 ${pathname === link.href ? 'bg-amber-600 text-white' : 'text-gray-300 hover:bg-gray-900 hover:text-white'}`}
+                className={`py-3 px-4 rounded-lg text-lg font-medium transition-all duration-400 ease-in-out transform hover:-translate-x-2 ${pathname === link.href ? 'bg-amber-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2 border-t border-gray-700">
+            <div className="pt-3 border-t border-gray-700">
               <LanguageSwitcher />
             </div>
           </nav>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 };

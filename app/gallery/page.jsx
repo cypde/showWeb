@@ -106,13 +106,13 @@ const GalleryPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'Gallery' : '画廊'}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center font-handwritten">{language === 'en' ? 'Gallery' : '画廊'}</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayData.map((item, index) => (
               <div key={isDefaultData ? index : item.id} className="rounded-xl overflow-hidden shadow-elegant card-hover">
                 <div className="p-3 bg-white">
-                  <h3 className="text-sm font-medium text-gray-700">{isDefaultData ? `Performance ${index + 1}` : (item.title || `Performance ${index + 1}`)}</h3>
+                  <h3 className="text-sm font-medium text-gray-700 font-handwritten">{isDefaultData ? `Performance ${index + 1}` : (item.title || `Performance ${index + 1}`)}</h3>
                 </div>
                 <img 
                   src={isDefaultData ? item : item.image_url} 
@@ -131,7 +131,7 @@ const GalleryPage = () => {
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Previous
                 </button>
@@ -141,7 +141,7 @@ const GalleryPage = () => {
                   <button
                     key={page}
                     onClick={() => handlePageChange(page)}
-                    className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
+                    className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === page ? 'bg-black text-white' : 'bg-gray-200 text-black hover:bg-gray-300'}`}
                   >
                     {page}
                   </button>
@@ -151,14 +151,14 @@ const GalleryPage = () => {
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
+                  className={`px-3 py-2 text-sm rounded-md sm:px-4 sm:py-2 font-sans ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'}`}
                 >
                   Next
                 </button>
               </div>
               
               {/* 分页信息 */}
-              <div className="text-gray-600 text-sm">
+              <div className="text-gray-600 text-sm font-sans">
                 Page {currentPage} of {totalPages} ({totalItems} items)
               </div>
             </div>
