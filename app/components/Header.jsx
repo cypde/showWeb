@@ -13,12 +13,23 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [siteConfig, setSiteConfig] = useState({ site_title: 'CHARLOTTE CLAPPERTON' });
   const [navLinks, setNavLinks] = useState([
-    { href: '/', label: language === 'en' ? 'Home' : '首页' },
-    { href: '/gallery', label: language === 'en' ? 'Gallery' : '画廊' },
-    { href: '/about', label: language === 'en' ? 'About' : '关于' },
-    { href: '/upcoming', label: language === 'en' ? 'Upcoming' : '演出' },
-    { href: '/contact', label: language === 'en' ? 'Contact' : '联系' }
+    { href: '/', label: 'Home' },
+    { href: '/gallery', label: 'Gallery' },
+    { href: '/about', label: 'About' },
+    { href: '/upcoming', label: 'Upcoming' },
+    { href: '/contact', label: 'Contact' }
   ]);
+
+  // 在客户端水合后更新导航链接文本
+  useEffect(() => {
+    setNavLinks([
+      { href: '/', label: language === 'en' ? 'Home' : '首页' },
+      { href: '/gallery', label: language === 'en' ? 'Gallery' : '画廊' },
+      { href: '/about', label: language === 'en' ? 'About' : '关于' },
+      { href: '/upcoming', label: language === 'en' ? 'Upcoming' : '演出' },
+      { href: '/contact', label: language === 'en' ? 'Contact' : '联系' }
+    ]);
+  }, [language]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
