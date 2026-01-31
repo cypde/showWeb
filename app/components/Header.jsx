@@ -4,17 +4,20 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import supabase from '../lib/supabase';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useLanguage } from '../lib/LanguageContext';
 
 const Header = () => {
   const pathname = usePathname();
+  const { language } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [siteConfig, setSiteConfig] = useState({ site_title: 'CHARLOTTE CLAPPERTON' });
   const [navLinks, setNavLinks] = useState([
-    { href: '/', label: 'Home' },
-    { href: '/gallery', label: 'Gallery' },
-    { href: '/about', label: 'About' },
-    { href: '/upcoming', label: 'Upcoming' },
-    { href: '/contact', label: 'Contact' }
+    { href: '/', label: language === 'en' ? 'Home' : '首页' },
+    { href: '/gallery', label: language === 'en' ? 'Gallery' : '画廊' },
+    { href: '/about', label: language === 'en' ? 'About' : '关于' },
+    { href: '/upcoming', label: language === 'en' ? 'Upcoming' : '演出' },
+    { href: '/contact', label: language === 'en' ? 'Contact' : '联系' }
   ]);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +27,8 @@ const Header = () => {
         // Fetch site config
         const { data: configData, error: configError } = await supabase
           .from('site_config')
-          .select('key, value');
+          .select('key, value')
+          .eq('language', language);
         
         if (configData) {
           const configObj = { site_title: 'CHARLOTTE CLAPPERTON' };
@@ -37,12 +41,13 @@ const Header = () => {
         // Fetch navigation links
         const { data: navData, error: navError } = await supabase
           .from('navigation')
-          .select('id, label, url, order_position, is_active')
+          .select('id, name, url, order_position, is_active')
           .eq('is_active', true)
+          .eq('language', language)
           .order('order_position', { ascending: true });
         
         if (navData) {
-          setNavLinks(navData.map(item => ({ href: item.url, label: item.label })));
+          setNavLinks(navData.map(item => ({ href: item.url, label: item.name })));
         }
       } catch (error) {
         console.error('Error fetching config:', error);
@@ -54,7 +59,7 @@ const Header = () => {
     };
 
     fetchConfig();
-  }, []);
+  }, [language]);
 
   return (
     <header className="bg-black text-white py-6 px-4 md:px-8 lg:px-16 fixed top-0 left-0 right-0 z-50 shadow-lg header-animation">
@@ -98,6 +103,7 @@ const Header = () => {
               </Link>
             ))}
           </nav>
+          <LanguageSwitcher />
         </div>
       </div>
       
@@ -115,6 +121,9 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="pt-2 border-t border-gray-700">
+              <LanguageSwitcher />
+            </div>
           </nav>
         </div>
       )}

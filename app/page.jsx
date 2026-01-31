@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import Layout from './components/Layout';
 import supabase from './lib/supabase';
+import { useLanguage } from './lib/LanguageContext';
 
 const HomePage = () => {
+  const { language } = useLanguage();
   const [data, setData] = useState({
     about: null,
     performances: [],
@@ -51,7 +53,8 @@ const HomePage = () => {
         const { data: sectionsData, error: sectionsError } = await supabase
           .from('home_sections')
           .select('*')
-          .eq('is_active', true);
+          .eq('is_active', true)
+          .eq('language', language);
         
         if (sectionsData) {
           const sectionsObj = {};
@@ -65,6 +68,7 @@ const HomePage = () => {
         const { data: aboutData, error: aboutError } = await supabase
           .from('about')
           .select('*')
+          .eq('language', language)
           .limit(1);
 
         if (aboutError) {
@@ -75,6 +79,7 @@ const HomePage = () => {
         const { data: performanceData, error: performanceError } = await supabase
           .from('performances')
           .select('*')
+          .eq('language', language)
           .order('date', { ascending: true })
           .limit(3);
 
@@ -86,6 +91,7 @@ const HomePage = () => {
         const { data: galleryData, error: galleryError } = await supabase
           .from('gallery')
           .select('*')
+          .eq('language', language)
           .limit(4);
 
         if (galleryError) {
@@ -105,7 +111,7 @@ const HomePage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [language]);
 
   // 默认数据，当数据库中没有数据时使用
   const defaultData = {

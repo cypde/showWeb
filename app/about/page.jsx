@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import supabase from '../lib/supabase';
-import { useTranslation } from '../lib/i18n';
+import { useLanguage } from '../lib/LanguageContext';
 
 const AboutPage = () => {
-  const { t } = useTranslation();
+  const { language } = useLanguage();
   const [about, setAbout] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,6 +17,7 @@ const AboutPage = () => {
         const { data, error } = await supabase
           .from('about')
           .select('*')
+          .eq('language', language)
           .limit(1);
 
         if (error) {
@@ -32,7 +33,7 @@ const AboutPage = () => {
     };
 
     fetchAbout();
-  }, []);
+  }, [language]);
 
   // 默认个人信息，当数据库中没有数据时使用
   const defaultAbout = {
@@ -59,7 +60,7 @@ const AboutPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{t.about.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'About' : '关于'}</h1>
           
           <div className="flex flex-col md:flex-row items-center mb-20">
             <div className="md:w-1/2 mb-10 md:mb-0 md:pr-12">
@@ -88,7 +89,7 @@ const AboutPage = () => {
               />
             </div>
             <div className="md:w-1/2">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">{t.about.artisticApproach}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">{language === 'en' ? 'Artistic Approach' : '艺术理念'}</h2>
               <div className="prose prose-lg">
                 {(aboutData.artisticApproach || aboutData.content).split('\n\n').map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>

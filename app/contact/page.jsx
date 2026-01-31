@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import supabase from '../lib/supabase';
+import { useLanguage } from '../lib/LanguageContext';
 
 const ContactPage = () => {
+  const { language } = useLanguage();
   const [pageData, setPageData] = useState({ title: 'Contact' });
   const [contactSections, setContactSections] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
@@ -18,6 +20,7 @@ const ContactPage = () => {
           .from('page_content')
           .select('*')
           .eq('page_slug', 'contact')
+          .eq('language', language)
           .limit(1);
         
         if (pageContent && pageContent.length > 0) {
@@ -29,6 +32,7 @@ const ContactPage = () => {
           .from('contact_info')
           .select('*')
           .eq('is_active', true)
+          .eq('language', language)
           .order('order_position', { ascending: true });
         
         if (contactData) {
@@ -40,6 +44,7 @@ const ContactPage = () => {
           .from('social_media')
           .select('*')
           .eq('is_active', true)
+          .eq('language', language)
           .order('order_position', { ascending: true });
         
         if (socialData) {
@@ -53,7 +58,7 @@ const ContactPage = () => {
     };
 
     fetchContactData();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return (
@@ -72,7 +77,6 @@ const ContactPage = () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{pageData.title}</h1>
           
           <div className="bg-gray-50 p-8 md:p-12 rounded-lg">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Contact Information</h2>
             
             <div className="space-y-8">
               {contactSections.map((section) => (

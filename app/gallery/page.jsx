@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import supabase from '../lib/supabase';
-import { useTranslation } from '../lib/i18n';
+import { useLanguage } from '../lib/LanguageContext';
 
 const GalleryPage = () => {
-  const { t } = useTranslation();
+  const { language } = useLanguage();
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +26,7 @@ const GalleryPage = () => {
           .from('gallery')
           .select('*', { count: 'exact' })
           .eq('is_active', true)
+          .eq('language', language)
           .order('order_position', { ascending: true })
           .range(offset, offset + itemsPerPage - 1);
 
@@ -44,7 +45,7 @@ const GalleryPage = () => {
     };
 
     fetchGallery();
-  }, [currentPage]);
+  }, [currentPage, language]);
 
   // 默认画廊图片，当数据库中没有数据时使用
   const defaultGallery = [
@@ -105,7 +106,7 @@ const GalleryPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{t.gallery.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'Gallery' : '画廊'}</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayData.map((item, index) => (

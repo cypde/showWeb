@@ -1,12 +1,15 @@
 import './globals.css';
+import { LanguageProvider } from './lib/LanguageContext';
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang="en">
-      <body>
-        {children}
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en">
+        <body>
+          {children}
+        </body>
+      </html>
+    </LanguageProvider>
   );
 };
 

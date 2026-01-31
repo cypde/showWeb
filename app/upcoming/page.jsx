@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import supabase from '../lib/supabase';
-import { useTranslation } from '../lib/i18n';
+import { useLanguage } from '../lib/LanguageContext';
 
 const UpcomingPage = () => {
-  const { t } = useTranslation();
+  const { language } = useLanguage();
   const [performances, setPerformances] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +26,7 @@ const UpcomingPage = () => {
           .from('performances')
           .select('*', { count: 'exact' })
           .eq('is_active', true)
+          .eq('language', language)
           .order('date', { ascending: true })
           .range(offset, offset + itemsPerPage - 1);
 
@@ -44,7 +45,7 @@ const UpcomingPage = () => {
     };
 
     fetchPerformances();
-  }, [currentPage]);
+  }, [currentPage, language]);
 
   // 默认演出信息，当数据库中没有数据时使用
   const defaultPerformances = [
@@ -141,7 +142,7 @@ const UpcomingPage = () => {
     <Layout>
       <section className="py-20 px-4 md:px-8 lg:px-16">
         <div className="container mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{t.upcoming.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-16 text-center">{language === 'en' ? 'Upcoming Performances' : '演出安排'}</h1>
           
           <div className="space-y-12">
             {displayData.map((event) => (
@@ -167,7 +168,7 @@ const UpcomingPage = () => {
                     </div>
                   </div>
                   <p className="text-lg mb-6">{event.description}</p>
-                  <a href="#" className="inline-block bg-black text-white px-8 py-3 font-bold hover:bg-gray-800 transition-colors">{t.upcoming.bookTickets}</a>
+                  <a href="#" className="inline-block bg-black text-white px-8 py-3 font-bold hover:bg-gray-800 transition-colors">{language === 'en' ? 'Book Tickets' : '预订门票'}</a>
                 </div>
               </div>
             ))}
