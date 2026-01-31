@@ -114,7 +114,7 @@ const Header = () => {
               <Link 
                 key={index}
                 href={link.href}
-                className={`relative px-3 py-2 text-lg font-medium transition-all duration-300 ease-in-out ${pathname === link.href ? 'text-white' : 'text-gray-300 hover:text-white'} ${scrolled ? 'text-sm' : 'text-base'}`}
+                className={`relative px-3 py-2 text-lg font-medium transition-all duration-300 ease-in-out ${pathname === link.href ? 'text-white' : 'text-gray-300 hover:text-white'} ${scrolled ? 'text-sm' : 'text-base'} font-sans`}
               >
                 {link.label}
                 <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 transition-transform duration-400 ease-out ${pathname === link.href ? 'transform scale-x-100' : 'transform scale-x-0 hover:scale-x-100'}`} />
@@ -135,7 +135,7 @@ const Header = () => {
                 key={index}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`py-3 px-4 rounded-lg text-lg font-medium transition-all duration-400 ease-in-out transform hover:-translate-x-2 ${pathname === link.href ? 'bg-amber-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'}`}
+                className={`py-3 px-4 rounded-lg text-lg font-medium transition-all duration-400 ease-in-out transform hover:-translate-x-2 ${pathname === link.href ? 'bg-amber-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white'} font-sans`}
               >
                 {link.label}
               </Link>
