@@ -25,8 +25,8 @@ const Header = () => {
     setNavLinks([
       { href: '/', label: language === 'en' ? 'Home' : '首页' },
       { href: '/gallery', label: language === 'en' ? 'Gallery' : '画廊' },
-      { href: '/about', label: language === 'en' ? 'About' : '关于' },
       { href: '/upcoming', label: language === 'en' ? 'Upcoming' : '演出' },
+      { href: '/about', label: language === 'en' ? 'About' : '关于' },
       { href: '/contact', label: language === 'en' ? 'Contact' : '联系' }
     ]);
   }, [language]);
